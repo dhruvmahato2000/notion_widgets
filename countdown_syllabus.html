@@ -6,6 +6,85 @@
     <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css"> <!-- Link to external CSS file -->
     <title>Time Left for Prelims</title>
+    <style>
+    body {
+    text-align: center;
+    font-family: 'Fjalla One', sans-serif;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+}
+.heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.countdown {
+    display: flex;
+    gap: 10px; /* Adds space between the countdown boxes */
+    justify-content: center;
+}
+.box {
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    flex: 1; /* Makes sure all boxes have equal width */
+    max-width: 150px; /* Limits the width for very large screens */
+    text-align: center;
+}
+#days {
+    background-color: #0f4d4f;
+}
+#hours {
+    background-color: #4CAF50;
+}
+#minutes {
+    background-color: #76250b;
+}
+
+/* Styling for the paragraph content */
+.gs-content {
+    text-align: left;
+    margin: 20px auto;
+    max-width: 600px;
+    font-size: 18px;
+}
+
+.gs-content p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.gs-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.gs-content ul li {
+    margin-bottom: 5px;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .heading {
+        font-size: 20px;
+    }
+    .box {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+    .gs-content {
+        font-size: 16px;
+    }
+}
+</style>
 </head>
 <body>
     <div class="container">
@@ -56,5 +135,42 @@
     </div>
 
     <script src="script.js"></script> <!-- Link to external JavaScript file -->
+    <script>
+    function CountDownTimer(targetDate) {
+    const left_days = document.getElementById("days");
+    const left_hours = document.getElementById("hours");
+    const left_minutes = document.getElementById("minutes");
+
+    const end = new Date(targetDate).getTime();
+    const _second = 1000;
+    const _minute = _second * 60;
+    const _hour = _minute * 60;
+    const _day = _hour * 24;
+
+    function showRemaining() {
+        const now = new Date().getTime();
+        const distance = end - now;
+
+        if (distance <= 0) {
+            clearInterval(timer);
+            document.getElementById("counter").innerHTML = "<h2>Nothing! It's Over<h2>";
+            return;
+        }
+
+        const days = Math.floor(distance / _day);
+        const hours = Math.floor((distance % _day) / _hour);
+        const minutes = Math.floor((distance % _hour) / _minute);
+
+        left_days.innerHTML = days + " days";
+        left_hours.innerHTML = hours + " hours";
+        left_minutes.innerHTML = minutes + " mins";
+    }
+
+    const timer = setInterval(showRemaining, 1000);
+}
+
+// Set the target date for Prelims (25th May 2025, 11:53 AM)
+CountDownTimer("2025-05-25T00:00:00");
+</script>
 </body>
 </html>
