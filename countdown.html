@@ -10,12 +10,33 @@
             text-align: center;
             font-family: 'Fjalla One', sans-serif;
             background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .heading {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .countdown {
+            display: flex;
+            gap: 10px; /* Adds space between the countdown boxes */
+            justify-content: center;
         }
         .box {
-            display: inline-block;
             color: #fff;
-            padding: 10px;
+            padding: 10px 20px;
             border-radius: 5px;
+            font-size: 20px;
+            flex: 1; /* Makes sure all boxes have equal width */
+            max-width: 150px; /* Limits the width for very large screens */
+            text-align: center;
         }
         #days {
             background-color: #0f4d4f;
@@ -26,18 +47,26 @@
         #minutes {
             background-color: #76250b;
         }
-        h2 {
-            display: inline-block;
-            margin-right: 10px;
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            .heading {
+                font-size: 20px;
+            }
+            .box {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="counter">
-        <h2>Prelims: Time left</h2>
-        <h2 class="box" id="days"></h2>
-        <h2 class="box" id="hours"></h2>
-        <h2 class="box" id="minutes"></h2>
+    <div class="container">
+        <div class="heading">Prelims: Time left</div>
+        <div class="countdown">
+            <div class="box" id="days"></div>
+            <div class="box" id="hours"></div>
+            <div class="box" id="minutes"></div>
+        </div>
     </div>
 
     <script>
@@ -46,7 +75,7 @@
             const left_hours = document.getElementById("hours");
             const left_minutes = document.getElementById("minutes");
 
-            const end = new Date(targetDate).getTime();  // Get time in milliseconds
+            const end = new Date(targetDate).getTime();
             const _second = 1000;
             const _minute = _second * 60;
             const _hour = _minute * 60;
@@ -71,7 +100,7 @@
                 left_minutes.innerHTML = minutes + " mins";
             }
 
-            const timer = setInterval(showRemaining, 1000);  // Update every 1 second
+            const timer = setInterval(showRemaining, 1000);
         }
 
         // Set the target date for Prelims (25th May 2025, 11:53 AM)
