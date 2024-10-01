@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Indian Express Clone</title>
+    <link rel="stylesheet" href="styles.css">
+<style>
+/* Resetting basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.top-header {
+    background-color: #f5f5f5;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.main-header {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo p {
+    font-size: 14px;
+    color: gray;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.menu li {
+    display: inline-block;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #000;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.subscribe-btn, .signin-btn {
+    padding: 8px 12px;
+    background-color: #ff5722;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.ad-banner {
+    margin: 20px auto;
+    text-align: center;
+}
+
+.ad-banner img {
+    width: 100%;
+    max-width: 1200px;
+    border: 1px solid #ddd;
+}
+
+.trending {
+    background-color: #f9f9f9;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.trending span {
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.trending a {
+    margin: 0 10px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.trending a:hover {
+    text-decoration: underline;
+}
+
+.news {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.news article h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.news img {
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 10px;
+}
+
+.news p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+</style>
+</head>
+<body>
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="edition">
+            <span>ENGLISH | தமிழ் | বাংলা | മലയാളം | ગુજરાતી | हिंदी | मराठी | BUSINESS | बिज़नेस</span>
+        </div>
+        <div class="date">
+            <span>Tuesday, Oct 01, 2024 | EPAPER | TODAY'S PAPER</span>
+        </div>
+    </header>
+
+    <!-- Main Header -->
+    <nav class="main-header">
+        <div class="logo">
+            <h1>The Indian Express</h1>
+            <p>JOURNALISM OF COURAGE</p>
+        </div>
+        <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">ePaper</a></li>
+            <li><a href="#">My Express</a></li>
+            <li><a href="#">UPSC</a></li>
+            <li><a href="#">Explained</a></li>
+            <li><a href="#">Opinion</a></li>
+            <li><a href="#">Politics</a></li>
+            <li><a href="#">Business</a></li>
+            <li><a href="#">Entertainment</a></li>
+            <li><a href="#">Sports</a></li>
+            <li><a href="#">Lifestyle</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button class="subscribe-btn">Subscribe</button>
+            <button class="signin-btn">Sign In</button>
+        </div>
+    </nav>
+
+    <!-- Advertisement Banner -->
+    <div class="ad-banner">
+        <img src="amazon-ad.jpg" alt="Amazon Ad - Great Indian Festival">
+    </div>
+
+    <!-- Trending Section -->
+    <section class="trending">
+        <span>TRENDING:</span>
+        <a href="#">UPSC Pack</a>
+        <a href="#">Express Shorts</a>
+        <a href="#">Mini Crossword</a>
+        <a href="#">Premium</a>
+        <a href="#">Podcast</a>
+        <a href="#">Health & Wellness</a>
+    </section>
+
+    <!-- News Section -->
+    <section class="news">
+        <article>
+            <h2>Iran fires over 200 missiles on Israel; air raid sirens sound in Tel Aviv, Jerusalem</h2>
+            <img src="news-image.jpg" alt="News Image">
+            <p>Details about the ongoing conflict between Iran and Israel...</p>
+        </article>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
