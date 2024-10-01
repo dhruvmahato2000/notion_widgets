@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz App</title>
+  <link rel="stylesheet" href="styles.css">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 400px;
+  max-width: 100%;
+}
+
+.card-header, .card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.timer {
+  color: orange;
+  font-weight: bold;
+}
+
+.progress-bar-container {
+  background-color: #e0e0e0;
+  height: 8px;
+  width: 100%;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  background-color: #4caf50;
+  height: 100%;
+  width: 0%;
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+
+.question-text {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.answers-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.answer-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.answer-label {
+  margin-left: 10px;
+  font-size: 1rem;
+}
+
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: red;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">
+        <span id="question-number">Question 1/2</span>
+        <span id="time-left" class="timer">30s</span>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+    </div>
+    <div class="card-content">
+      <h2 id="question-text" class="question-text"></h2>
+      <div id="answers-container" class="answers-container"></div>
+    </div>
+    <div class="card-footer">
+      <span id="answer-feedback"></span>
+      <button id="next-button" disabled>Next</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const questions = [
+    {
+      question: "What is the capital of France?",
+      answers: ["London", "Berlin", "Paris", "Madrid"],
+      correctAnswer: "Paris"
+    },
+    {
+      question: "Which planet is known as the Red Planet?",
+      answers: ["Venus", "Mars", "Jupiter", "Saturn"],
+      correctAnswer: "Mars"
+    }
+  ];
+
+  let currentQuestion = 0;
+  let selectedAnswer = '';
+  let timeLeft = 30;
+  let isAnswered = false;
+  let timer;
+
+  const questionNumberEl = document.getElementById('question-number');
+  const timeLeftEl = document.getElementById('time-left');
+  const questionTextEl = document.getElementById('question-text');
+  const answersContainerEl = document.getElementById('answers-container');
+  const nextButtonEl = document.getElementById('next-button');
+  const answerFeedbackEl = document.getElementById('answer-feedback');
+  const progressBarEl = document.getElementById('progress-bar');
+
+  const loadQuestion = () => {
+    const question = questions[currentQuestion];
+    questionTextEl.textContent = question.question;
+    answersContainerEl.innerHTML = '';
+
+    question.answers.forEach((answer, index) => {
+      const answerDiv = document.createElement('div');
+      answerDiv.className = 'answer-option';
+
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'answer';
+      input.value = answer;
+      input.id = `answer-${index}`;
+      input.disabled = isAnswered;
+      input.addEventListener('change', () => handleAnswerSelect(answer));
+
+      const label = document.createElement('label');
+      label.className = 'answer-label';
+      label.htmlFor = `answer-${index}`;
+      label.textContent = answer;
+
+      answerDiv.appendChild(input);
+      answerDiv.appendChild(label);
+      answersContainerEl.appendChild(answerDiv);
+    });
+
+    questionNumberEl.textContent = `Question ${currentQuestion + 1}/${questions.length}`;
+    progressBarEl.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+  };
+
+  const startTimer = () => {
+    timer = setInterval(() => {
+      if (timeLeft > 0 && !isAnswered) {
+        timeLeft -= 1;
+        timeLeftEl.textContent = `${timeLeft}s`;
+      } else {
+        clearInterval(timer);
+      }
+    }, 1000);
+  };
+
+  const handleAnswerSelect = (answer) => {
+    selectedAnswer = answer;
+    isAnswered = true;
+    clearInterval(timer);
+    checkAnswer();
+  };
+
+  const checkAnswer = () => {
+    const question = questions[currentQuestion];
+    if (selectedAnswer === question.correctAnswer) {
+      answerFeedbackEl.textContent = 'Correct!';
+      answerFeedbackEl.className = 'correct';
+    } else {
+      answerFeedbackEl.textContent = `Incorrect. The correct answer is ${question.correctAnswer}.`;
+      answerFeedbackEl.className = 'incorrect';
+    }
+    nextButtonEl.disabled = false;
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestion < questions.length - 1) {
+      currentQuestion++;
+      selectedAnswer = '';
+      timeLeft = 30;
+      isAnswered = false;
+      answerFeedbackEl.textContent = '';
+      nextButtonEl.disabled = true;
+      loadQuestion();
+      startTimer();
+    } else {
+      alert('Quiz finished!');
+    }
+  };
+
+  nextButtonEl.addEventListener('click', handleNextQuestion);
+
+  loadQuestion();
+  startTimer();
+});
+</script>
+</body>
+</html>
