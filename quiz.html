@@ -232,15 +232,6 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Quiz finished!');
     }
   };
-const checkAnswer = () => {
-  const question = questions[currentQuestion];
-  if (selectedAnswer === question.correctAnswer) {
-    score++;
-    // Display "Correct" message
-  } else {
-    // Display "Incorrect" message
-  }
-};
 
   nextButtonEl.addEventListener('click', handleNextQuestion);
 
