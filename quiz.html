@@ -135,9 +135,14 @@ document.addEventListener('DOMContentLoaded', () => {
       question: "Which planet is known as the Red Planet?",
       answers: ["Venus", "Mars", "Jupiter", "Saturn"],
       correctAnswer: "Mars"
-    }
+    },
+ {
+    question: "Who is the founder of Microsoft?",
+    answers: ["Bill Gates", "Steve Jobs", "Elon Musk", "Mark Zuckerberg"],
+    correctAnswer: "Bill Gates"
+  }
   ];
-
+  let score = 0;
   let currentQuestion = 0;
   let selectedAnswer = '';
   let timeLeft = 30;
